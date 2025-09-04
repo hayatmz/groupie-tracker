@@ -3,8 +3,6 @@ package web
 import (
 	str "groupietrack/datastruct"
 	"net/http"
-	"os"
-	"path"
 	"strconv"
 	"text/template"
 )
@@ -12,32 +10,26 @@ import (
 var data str.PageData
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
-	fileSystem := http.Dir("./templates")
-	fileServer := http.FileServer(fileSystem)
-	_, err := fileSystem.Open(path.Clean(r.URL.Path))
-	// Si index.html n'existe pas ou que le chemin de l'url n'est ni / ni /artistPage, je redirige sur la page 404.
-	if os.IsNotExist(err) && r.URL.Path != "/artistPage" && r.URL.Path != "/" && r.URL.Path != "/results-search" {
+	// Si le chemin de l'url n'existe pas et n'est pas une route valide, rediriger vers 404
+	if r.URL.Path != "/" && r.URL.Path != "/index.html" && r.URL.Path != "/artistPage" && r.URL.Path != "/results-search" {
 		http.Redirect(w, r, "/404Page.html", http.StatusSeeOther)
 		return
 	}
 
-	// Si le chemin de l'url correspond bien à index.html ou / alors j'exécute le template index.html.
-	if r.URL.Path == "/index.html" || r.URL.Path == "/" {
+	// Si c'est la page index, parser le template
+	if r.URL.Path == "/" || r.URL.Path == "/index.html" {
 		tmpl, err := template.ParseFiles("./templates/index.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		// Pour ajouter les données de []Artists au template.
+
 		data = str.PageData{
 			ArtistHTML: str.GetDatas(),
 		}
-
 		tmpl.Execute(w, data)
-
-	  	return
+		return
 	}
-	
-	fileServer.ServeHTTP(w, r)
 }
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
