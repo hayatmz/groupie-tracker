@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-mobile.css">
+    <link rel="stylesheet" href="style-tab.css">
+    <title>GroupieTracker</title>
+    <link rel="icon" type="image/png" href="img/logoYtb.png">
+</head>
+    <body>
+        <header>
+            <div class="containerHeader">
+                <div class="logoHome">
+                    <a href="/">
+                        <img src="img/logoYtb.png"" alt="logo" height="38px">
+                    </a>
+                    <h1>
+                        <span class="GT">G</span>roupie<span class="GT">T</span>racker</h1>
+                </div>
+
+                <div class="containerSearch">
+                    <div class="search-box">
+                        <div class="search">
+                            <input placeholder="Rechercher" type="text">
+                            <button type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gitLink">
+                    <a href="https://zone01normandie.org/git/hmazlin/groupie-tracker-search-bar.git" target="_blank">
+                        <img src="img/giteaIcon.jpg" alt="Github" height="38px">
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="pageArtist">
+            <div class="cadreArtist">
+                <div class="droiteArtist">
+                    <img id="droite" src="{{.Image}}" alt="Image Artiste" /> <br>
+                    <div id="membres">
+                        <i id="icon-membres" class="fa-solid fa-users fa-2xl" style="color: #000000;"></i>
+                        <br> {{range .Members}} {{.}} <br> {{end}}
+                    </div>
+                </div>
+                <div class="gaucheArtist">
+                    <iframe width="100%" height="100%" src="{{.Link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+                <div class="infoArtist">
+                    <h1 id="name-art">{{.Name}}</h1>
+                    <div id="under-name">
+                        <img id="circle-image" src="{{.Image}}" alt="Image Artiste">
+                        <p id="creation-artist">Crée en {{.Creation}}
+                            <i class="fa-solid fa-music fa-2xs" style="color: #909090;"></i> <br>
+                            <span id="premier-album">Premier album: {{.FirstAlbum}}</span>
+                        </p>
+                    </div>
+                    <div id="description">
+                        <p id="info-concert">
+                       <span id="concerts">Concerts</span><br>
+                        {{range $date, $location := .RelationsRecup}}
+                        {{$date}}: {{range $location}} {{.}}, {{end}}<br>
+                        {{end}}<br>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

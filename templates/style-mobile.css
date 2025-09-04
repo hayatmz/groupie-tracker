@@ -1,0 +1,83 @@
+@media only screen and (max-width: 550px) {
+
+    header {
+        width: 100vw;
+        padding-top: 5%;
+        position: absolute;
+    }
+
+    .logoHome {
+        padding-left: 5%;
+    }
+
+    .logoHome > h1 {
+        color: #0f0f0f;
+        font-size: 20px;
+        padding-top: 6px;
+    }
+
+    .search {
+        padding-left: 30%;
+    }
+
+    .search input[type="text"] {
+        border: 1.5px solid #ccc;
+        border-radius: 20px;
+        width: 32vw;
+    }
+
+    .search button[type="submit"] {
+        border: 1px solid #ccc;
+    }
+
+    .gitLink {
+        visibility: hidden;
+    }
+
+    .artist {
+        margin-bottom: 8px;
+        width: 100%;
+        margin-left: 10%;
+    }
+
+    .artist img {
+        width: 95%;
+        height: auto;
+    }
+
+    .droiteArtist {
+        margin: auto;
+        margin-top: 10%;
+      }
+
+    img#droite {
+        margin-top: 15px;
+        border-radius: 50%;
+        width: 60%;
+        height: auto;
+    }
+    
+    #icon-membres, #name-art, #under-name {
+        visibility: hidden;
+    }
+
+    .gaucheArtist {
+        margin: auto;
+        margin-top: 10%;
+        width: auto;
+        height: auto;
+    }
+
+    #description {
+        width: 95%;
+        margin: auto;
+        margin-bottom: 10%;
+
+    }
+
+    footer {
+        position: fixed;
+        margin-left: 50%;
+        margin-top: 200%;
+    }
+}

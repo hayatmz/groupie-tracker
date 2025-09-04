@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style-mobile.css">
+        <link rel="stylesheet" href="style-tab.css">
+        <title>GroupieTracker</title>
+        <link rel="icon" type="image/png" href="img/logoYtb.png">
+    </head>
+    <body>
+        <header>
+            <div class="containerHeader">
+                <div class="logoHome">
+                    <a href="/">
+                        <img src="img/logoYtb.png"" alt="logo" height="38px">
+                    </a>
+                    <h1>
+                        <span class="GT">G</span>roupie<span class="GT">T</span>racker</h1>
+                </div>
+                
+                <div class="containerSearch">
+                    <div class="search-box">
+                        <div class="search">
+                            <form action="/results-search" method="get">
+                                <input placeholder="Rechercher" type="text" name="query" list="queries" autocomplete="off">
+                                <button type="submit" value="search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                            <datalist id="queries">
+                                {{range $_blank, $element := .ArtistHTML}}
+                                <option value="{{.Name}}">Artiste/Groupe: {{.Name}}</option>
+                                {{ $Name := .Name}}
+                                {{range .Members}}
+                                <option value="{{.}}">{{.}} - {{$Name}}</option>
+                                {{end}}
+                                <option value="{{.Creation}}">Création: {{.Creation}} - {{$Name}}</option>
+                                <option value="{{.FirstAlbum}}">Premier Album: {{.FirstAlbum}} - {{$Name}}</option>
+                                {{range .LocationsRecup}}
+                                <option value="{{.}}">Ville Concert: {{.}} - {{$Name}}</option>
+                                {{end}}
+                                {{range .ConcertDatesRecup}}
+                                <option value="{{.}}">Date Concert: {{.}} - {{$Name}}</option>
+                                {{end}}
+                                {{end}}
+                            </datalist>
+                          </div>
+                    </div>
+                </div>
+                
+                <div class="gitLink">
+                    <a href="https://zone01normandie.org/git/hmazlin/groupie-tracker-search-bar.git" target="_blank">
+                        <img src="img/giteaIcon.jpg" alt="Github" height="38px">
+                    </a>
+                </div>
+            </div>
+
+            <!-- <div class="filters">
+                <div class="members">
+                    <input type="checkbox" name="members" id="1" value="1" />
+                    <label for="1">1</label>
+                    <input type="checkbox" name="members" id="2" value="2" />
+                    <label for="2">2</label>
+                    <input type="checkbox" name="members" id="3" value="3" />
+                    <label for="3">3</label>
+                    <input type="checkbox" name="members" id="4" value="4" />
+                    <label for="4">4</label>
+                    <input type="checkbox" name="members" id="5" value="5" />
+                    <label for="5">5</label>
+                    <input type="checkbox" name="members" id="6" value="6" />
+                    <label for="6">6</label>
+                    <input type="checkbox" name="members" id="7" value="7" />
+                    <label for="7">7</label>
+                </div>
+                <button type="submit">Appliquer Filtres</button>
+            </div> -->
+            
+        </header>
+        <div class="artists">
+                {{range $index, $element := .ArtistHTML}}
+                <div class="artist">
+                    <img src="{{.Image}}" alt="Image Artiste" />
+                    <div class="desc">
+                        <i class="fa-brands fa-youtube fa-2xl" style="color: #ff0000;"></i>
+                        <div class="tooltip">
+                            <form action="/artist" id="newPage">
+                                <input type="hidden" id="newPage" name="artistPage" value="{{$element.ID}}">
+                                <input id="name" type="submit" value="{{$element.Name}}">
+                                <span class="tooltiptext">Plus d'infos.</span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="plus">
+                        <p id="creation">Crée en {{$element.Creation}}</p>
+                    </div>
+                </div>
+                {{end}}
+        </div>
+        <div class="fin">
+            <footer>
+            <a href="#">
+                <i class="fa-solid fa-circle-up fa-2xl" style="color: #909090;"></i>
+            </a>
+        </footer>
+        </div>
+        
+    </body>
+</html>
